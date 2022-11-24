@@ -11,6 +11,8 @@ wget -qO - https://github.com/openwrt/openwrt/commit/66fa343.patch | patch -p1
 ./scripts/feeds install -a
 # 默认开启 Irqbalance
 sed -i "s/enabled '0'/enabled '1'/g" feeds/packages/utils/irqbalance/files/irqbalance.config
+# 设置默认管理地址为 192.168.2.1
+sed -i 's/192.168.1.1/192.168.2.1/' package/base-files/files/bin/config_generate
 # 移除 SNAPSHOT 标签
 sed -i 's,-SNAPSHOT,,g' include/version.mk
 sed -i 's,-SNAPSHOT,,g' package/base-files/image-config.in
