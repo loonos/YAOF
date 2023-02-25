@@ -48,8 +48,8 @@ cp -rf ../PATCH/LRNG/* ./target/linux/generic/hack-5.10/
 rm -rf ./package/libs/mbedtls
 cp -rf ../immortalwrt/package/libs/mbedtls ./package/libs/mbedtls
 rm -rf ./package/libs/openssl
-cp -rf ../immortalwrt/package/libs/openssl ./package/libs/openssl
-wget -P include/ https://github.com/immortalwrt/immortalwrt/raw/master/include/openssl-engine.mk
+cp -rf ../immortalwrt_21/package/libs/openssl ./package/libs/openssl
+#wget -P include/ https://github.com/immortalwrt/immortalwrt/raw/master/include/openssl-engine.mk
 # fstool
 wget -qO - https://github.com/coolsnowwolf/lede/commit/8a4db76.patch | patch -p1
 
@@ -94,6 +94,8 @@ rm -rf ./package/firmware/linux-firmware/Makefile
 wget -P package/firmware/linux-firmware/ https://github.com/coolsnowwolf/lede/raw/master/package/firmware/linux-firmware/Makefile
 mkdir -p target/linux/rockchip/files-5.10
 cp -rf ../PATCH/files-5.10 ./target/linux/rockchip/
+# enable tso for nanopi-r4s
+sed -i '/set_interface_core 20 "eth1"/a \\tethtool -K eth1 tso on sg on tx on' target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
 rm -rf ./package/boot/uboot-rockchip
 cp -rf ../lede/package/boot/uboot-rockchip ./package/boot/uboot-rockchip
 cp -rf ../lede/package/boot/arm-trusted-firmware-rockchip-vendor ./package/boot/arm-trusted-firmware-rockchip-vendor
