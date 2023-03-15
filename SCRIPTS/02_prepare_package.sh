@@ -26,6 +26,7 @@ sed -i '/mirror02/d' scripts/download.pl
 echo "net.netfilter.nf_conntrack_helper = 1" >>./package/kernel/linux/files/sysctl-nf-conntrack.conf
 # Nginx
 sed -i "s/client_max_body_size 128M/client_max_body_size 2048M/g" feeds/packages/net/nginx-util/files/uci.conf.template
+sed -i '/client_max_body_size/a\\tclient_body_buffer_size 8192M;' feeds/packages/net/nginx-util/files/uci.conf.template
 sed -i '/ubus_parallel_req/a\        ubus_script_timeout 600;' feeds/packages/net/nginx/files-luci-support/60_nginx-luci-support
 sed -ri "/luci-webui.socket/i\ \t\tuwsgi_send_timeout 600\;\n\t\tuwsgi_connect_timeout 600\;\n\t\tuwsgi_read_timeout 600\;" feeds/packages/net/nginx/files-luci-support/luci.locations
 sed -ri "/luci-cgi_io.socket/i\ \t\tuwsgi_send_timeout 600\;\n\t\tuwsgi_connect_timeout 600\;\n\t\tuwsgi_read_timeout 600\;" feeds/packages/net/nginx/files-luci-support/luci.locations
@@ -124,6 +125,9 @@ sed -i 's/"getTempInfo" /"getTempInfo", "getCPUBench", "getCPUUsage" /g' package
 sed -i '/"$threads"/d' package/new/autocore/files/x86/autocore
 rm -rf ./feeds/packages/utils/coremark
 cp -rf ../immortalwrt_pkg/utils/coremark ./feeds/packages/utils/coremark
+# Airconnect
+cp -rf ../OpenWrt-Add/airconnect ./package/new/airconnect
+cp -rf ../OpenWrt-Add/luci-app-airconnect ./package/new/luci-app-airconnect
 # luci-app-irqbalance
 cp -rf ../OpenWrt-Add/luci-app-irqbalance ./package/new/luci-app-irqbalance
 # 更换 Nodejs 版本
@@ -231,8 +235,7 @@ sed -i '/sysctl.d/d' feeds/packages/utils/dockerd/Makefile
 rm -rf ./feeds/luci/collections/luci-lib-docker
 cp -rf ../docker_lib/collections/luci-lib-docker ./feeds/luci/collections/luci-lib-docker
 # DiskMan
-mkdir -p package/new/luci-app-diskman && \
-wget https://raw.githubusercontent.com/lisaac/luci-app-diskman/master/applications/luci-app-diskman/Makefile -O package/new/luci-app-diskman/Makefile
+cp -rf ../diskman/applications/luci-app-diskman ./package/new/luci-app-diskman
 mkdir -p package/new/parted && \
 wget https://raw.githubusercontent.com/lisaac/luci-app-diskman/master/Parted.Makefile -O package/new/parted/Makefile
 # Dnsfilter
@@ -416,6 +419,19 @@ sed -i 's,9625784cf2e4fd9842f1d407681ce4878b5b0dcddbcd31c6135114a30c71e6a8,skip,
 # 翻译及部分功能优化
 cp -rf ../OpenWrt-Add/addition-trans-zh ./package/new/addition-trans-zh
 sed -i 's,iptables-mod-fullconenat,iptables-nft +kmod-nft-fullcone,g' package/new/addition-trans-zh/Makefile
+# dae ready
+sed -i '/CONFIG_DEBUG_INFO is not set/d' target/linux/generic/config-5.10
+sed -i '/CONFIG_DEBUG_INFO_BTF/d' target/linux/generic/config-5.10
+sed -i '/CONFIG_NET_CLS_ACT/d' target/linux/generic/config-5.10
+sed -i '/CONFIG_NET_CLS_ACT/d' target/linux/generic/config-5.10
+echo '
+CONFIG_DEBUG_INFO=y
+CONFIG_DEBUG_INFO_BTF=y
+CONFIG_NET_CLS_ACT=y
+CONFIG_NET_SCH_INGRESS=m
+CONFIG_NET_INGRESS=y
+CONFIG_NET_EGRESS=y
+' >>./target/linux/generic/config-5.10
 
 ### 最后的收尾工作 ###
 # Lets Fuck
