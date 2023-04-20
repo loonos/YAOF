@@ -34,6 +34,7 @@ sed -ri "/luci-cgi_io.socket/i\ \t\tuwsgi_send_timeout 600\;\n\t\tuwsgi_connect_
 cp -rf ../PATCH/backport/MG-LRU/* ./target/linux/generic/pending-5.10/
 # TCP optimizations
 cp -rf ../PATCH/backport/TCP/* ./target/linux/generic/backport-5.10/
+wget -P target/linux/generic/pending-5.10/ https://github.com/openwrt/openwrt/raw/v22.03.3/target/linux/generic/pending-5.10/613-netfilter_optional_tcp_window_check.patch
 # Patch arm64 型号名称
 cp -rf ../immortalwrt/target/linux/generic/hack-5.10/312-arm64-cpuinfo-Add-model-name-in-proc-cpuinfo-for-64bit-ta.patch ./target/linux/generic/hack-5.10/312-arm64-cpuinfo-Add-model-name-in-proc-cpuinfo-for-64bit-ta.patch
 # BBRv2
@@ -133,6 +134,10 @@ rm -rf ./feeds/packages/net/frr
 cp -rf ../openwrt_pkg_ma/net/frr feeds/packages/net/frr
 cp -rf ../immortalwrt_pkg/net/dae ./feeds/packages/net/dae
 ln -sf ../../../feeds/packages/net/dae ./package/feeds/packages/dae
+# mount cgroupv2
+pushd feeds/packages
+wget -qO - https://github.com/openwrt/packages/commit/7a64a5f4.patch | patch -p1
+popd
 # i915
 wget -qO - https://github.com/openwrt/openwrt/commit/c21a3570.patch | patch -p1
 cp -rf ../lede/target/linux/x86/64/config-5.10 ./target/linux/x86/64/config-5.10
