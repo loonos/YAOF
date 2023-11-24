@@ -7,6 +7,8 @@ sed -i 's/Os/O2/g' include/target.mk
 # 更新 Feeds
 ./scripts/feeds update -a
 ./scripts/feeds install -a
+# 设置默认管理地址为 192.168.2.1
+sed -i 's/192.168.1.1/192.168.2.1/' package/base-files/files/bin/config_generate
 # 默认开启 Irqbalance
 sed -i "s/enabled '0'/enabled '1'/g" feeds/packages/utils/irqbalance/files/irqbalance.config
 # 移除 SNAPSHOT 标签
