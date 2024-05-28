@@ -28,7 +28,7 @@
 - 可无脑 opkg kmod
 - R2C/R2S 核心频率 1.6（交换了 LAN WAN），R4S 核心频率 2.2/1.8（建议使用带有线损补偿的电源，死机大多数情况下，都是因为**你用的电源过于垃圾**，另外，你也可以选择**使用自带的 app 限制最大频率**，茄子 🍆）
 - O2 编译，CFLAG 优化
-- 插件包含：~~SSRP~~，~~PassWall~~，OpenClash，DAED，~~微信推送~~，~~网易云解锁~~，SQM，DNSProxy，网络唤醒，DDNS，~~迅雷快鸟~~，UPNP，FullCone（防火墙中开启，默认开启），流量分载，irq 优化，~~京东签到~~，~~Zerotier~~，FRPC，~~FRPS~~，~~无线打印~~，流量监控，过滤军刀，R2S-OLED
+- 插件包含：~~SSRP~~，PassWall，OpenClash，DAED，~~微信推送~~，~~网易云解锁~~，SQM，DNSProxy，网络唤醒，DDNS，~~迅雷快鸟~~，UPNP，FullCone（防火墙中开启，默认开启），流量分载，irq 优化，~~京东签到~~，~~Zerotier~~，FRPC，~~FRPS~~，~~无线打印~~，流量监控，过滤军刀，R2S-OLED
 - ss 协议在 armv8 上实现了 aes 硬件加速（请**仅使用 aead 加密**的连接方式）
 - 集成并默认启用了 BBRv3，LRNG
 - 集成了 Docker，并针对特殊问题做了一些 workaround，要使用 Docker，请先开启“Docker->配置->自动启动”选项，并保存应用设置
