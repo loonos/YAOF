@@ -132,7 +132,9 @@ CONFIG_PACKAGE_luci-app-wrtbwmon=y
 # CONFIG_PACKAGE_luci-app-zerotier=y
 # CONFIG_PACKAGE_zerotier=y
 CONFIG_PACKAGE_luci-app-watchcat=y
-CONFIG_PACKAGE_luci-app-natmap=y
+CONFIG_PACKAGE_luci-app-natmapt=y
+CONFIG_PACKAGE_stuntman-client=y
+CONFIG_PACKAGE_luci-app-oaf=y
 CONFIG_PACKAGE_coremark=y
 CONFIG_PACKAGE_htop=y
 CONFIG_PACKAGE_subconverter=y
@@ -213,3 +215,7 @@ CONFIG_DOCKER_NET_OVERLAY=y
 CONFIG_DOCKER_NET_TFTP=y
 CONFIG_DOCKER_STO_BTRFS=y
 CONFIG_DOCKER_STO_EXT4=y
+
+### OTHERS ###
+CONFIG_PACKAGE_kmod-crypto-cmac=y
+CONFIG_PACKAGE_kmod-crypto-ccm=y
